@@ -20,10 +20,10 @@ df = pd.DataFrame(te_ary, columns=te.columns_)
 
 frequent_itemsets = apriori(df, min_support=0.01, use_colnames=True)
 rules_Apriori = association_rules(frequent_itemsets, metric="confidence",# Générer les règles d'association à partir des itemsets fréquents 
-                                   min_threshold=0.1)#en utilisant la métrique de confiance avec un seuil minimal de 0.1
+                                   min_threshold=0.1,num_itemsets=len(df))#en utilisant la métrique de confiance avec un seuil minimal de 0.1
 frequent_itemsets_FP = fpgrowth(df, min_support=0.01, use_colnames=True)# avec un seuil de support minimal de 0.01
 
-rules_FP = association_rules(frequent_itemsets_FP, metric="lift", min_threshold=1.0)#métrique de lift avec un seuil minimal de 1.0
+rules_FP = association_rules(frequent_itemsets_FP, metric="lift", min_threshold=1.0,num_itemsets=len(df))#métrique de lift avec un seuil minimal de 1.0
 
 def recomendation(user_watched,method):
     if not method=="Appriori":#choisir la methode apriori ou fp growth
